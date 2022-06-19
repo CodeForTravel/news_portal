@@ -26,16 +26,6 @@ export const actions = {
       });
   },
 
-  getUserProfile({}, { userId }) {
-    return UserService.getUserProfile(userId)
-      .then((resp) => {
-        return resp;
-      })
-      .catch((err) => {
-        console.log(err);
-        return err.response;
-      });
-  },
 
   updateUserProfile({}, { userId, userProfile }) {
     UserService.updateUserProfile(userId, userProfile)
