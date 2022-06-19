@@ -1,6 +1,6 @@
 <template>
-  <div class="border bg-white p-4 shadow-sm rounded">
-    <h4 class="text-center">{{ $t("CHANGE PASSWORD") }}</h4>
+  <div class="p-4">
+    <h4 class="">{{ $t("CHANGE PASSWORD") }}</h4>
     <div class="mt-4"></div>
 
     <b-form @submit.prevent="onFormSubmit" @reset.prevent="resetForm">

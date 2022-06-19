@@ -1,5 +1,5 @@
 <template>
-  <div class="border bg-white p-4 shadow-sm rounded">
+  <div class="p-4">
     <h4>{{ $t("UPDATE PROFILE") }}</h4>
 
     <div class="mt-4"></div>
