@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <h4 class="">{{ $t("CHANGE PASSWORD") }}</h4>
+    <h4 class="">{{ $t("Change Password") }}</h4>
     <div class="mt-4"></div>
 
     <b-form @submit.prevent="onFormSubmit" @reset.prevent="resetForm">
@@ -87,7 +87,7 @@ export default {
             if (response.status == 200) {
               this.resetForm();
 
-              setTimeout(function() {
+              setTimeout(function () {
                 window.location.href = "/logout";
               }, 3000);
             }

@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <h4>{{ $t("UPDATE PROFILE") }}</h4>
+    <h4>{{ $t("Update Profile") }}</h4>
 
     <div class="mt-4"></div>
 
@@ -31,13 +31,10 @@
         </b-col>
       </b-row>
     </b-form>
-
-
   </div>
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -48,19 +45,15 @@ export default {
       },
     };
   },
-  components: {
-  },
+  components: {},
 
   created() {
     this.fetchUserInfo();
   },
 
-  computed: {
-    
-  },
+  computed: {},
 
   methods: {
-    
     fetchUserInfo() {
       this.$store.dispatch("user/getUserInfo").then((resp) => {
         if (resp.status == 200) {
@@ -72,8 +65,7 @@ export default {
     },
 
     onFormSubmit() {
-
-      console.log("==============")
+      console.log("==============");
 
       if (["", null].includes(this.user_profile.email)) {
         Vue.toasted.show("You must fill up the email!", {
@@ -82,16 +74,13 @@ export default {
         return false;
       }
 
-       this.$store.dispatch("user/updateUserProfile", {
-        userId: this.userId,
-        userProfile: this.user_profile,
-      }).then(resp =>{
-
-      })
-
+      this.$store
+        .dispatch("user/updateUserProfile", {
+          userId: this.userId,
+          userProfile: this.user_profile,
+        })
+        .then((resp) => {});
     },
-
-
   },
 };
 </script>
