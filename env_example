@@ -7,3 +7,4 @@ EMAIL_HOST=smtp.gmail.com
 EMAIL_HOST_USER=example@gmail.com
 EMAIL_HOST_PASSWORD=email_password
 EMAIL_PORT=587
+NEWS_API_KEY=news_api_key
