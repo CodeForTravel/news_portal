@@ -1,0 +1,14 @@
+{% extends "base/base_root.html" %}
+{% load i18n %}
+
+{% block html_title %}
+{% trans "News Portal | news_portal" %}
+{% endblock html_title %}
+
+{% block root_content %}
+
+    <nav-bar></nav-bar>
+
+    <router-view></router-view>
+
+{% endblock root_content %}
