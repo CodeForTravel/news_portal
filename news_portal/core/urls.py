@@ -25,6 +25,8 @@ for path__ in auth_template_url_paths:
 authenticated_url_paths = [
     # first index is path, second index is name
     ["user/profile/", "profile"],
+    ["news-feed/", "news-feed"],
+    
 ]
 for path__ in authenticated_url_paths:
     urlpatterns.append(

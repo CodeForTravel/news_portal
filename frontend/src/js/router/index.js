@@ -1,15 +1,19 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from "vue";
+import Router from "vue-router";
 
 const PageUserProfile = () => import("../pages/PageUserProfile.vue");
-const PageLogin =()=> import("../pages/auth/PageLogin.vue")
-const PagePasswordReset =()=> import("../pages/registration/PagePasswordReset.vue")
-const PagePasswordResetDone =()=> import("../pages/registration/PagePasswordResetDone.vue")
-const PagePasswordResetComplete =()=> import("../pages/registration/PagePasswordResetComplete.vue")
-const PagePasswordResetConfirm =()=> import("../pages/registration/PagePasswordResetConfirm.vue")
-const HomePage =()=> import("../components/base/HomePage.vue")
-
-Vue.use(Router)
+const PageLogin = () => import("../pages/auth/PageLogin.vue");
+const PagePasswordReset = () =>
+  import("../pages/registration/PagePasswordReset.vue");
+const PagePasswordResetDone = () =>
+  import("../pages/registration/PagePasswordResetDone.vue");
+const PagePasswordResetComplete = () =>
+  import("../pages/registration/PagePasswordResetComplete.vue");
+const PagePasswordResetConfirm = () =>
+  import("../pages/registration/PagePasswordResetConfirm.vue");
+const HomePage = () => import("../components/base/HomePage.vue");
+const PageNewsFeed = () => import("../pages/PageNewsFeed.vue");
+Vue.use(Router);
 
 const routes = [
   {
@@ -18,6 +22,14 @@ const routes = [
     component: HomePage,
     props: true,
     meta: { title: "Home | News Portal", navBarTitle: "HOME" },
+  },
+
+  {
+    path: "/news-feed/",
+    name: "news-feed",
+    component: PageNewsFeed,
+    props: true,
+    meta: { title: "News Feed | News Portal", navBarTitle: "News Feed" },
   },
 
   {
@@ -71,11 +83,11 @@ const routes = [
       title: "Password Reset Confirm | News Portal",
     },
   },
-]
+];
 
 const router = new Router({
-  mode: 'history',
-  routes
-})
+  mode: "history",
+  routes,
+});
 
-export default router
+export default router;

@@ -42,19 +42,17 @@
       <!-- Footer -->
       <footer class="page-footer bg-white border shadow-sm font-small blue">
         <!-- Copyright -->
+        {% comment %}
         <div class="footer-copyright text-center py-2">
           Copyright © 2021-2022
-          <a href="https://NewsPortal.com/">News Portal</a>. All
-          Rights Reserved
+          <a href="https://NewsPortal.com/">News Portal</a>. All Rights Reserved
         </div>
+        {% endcomment %}
         <!-- Copyright -->
       </footer>
       <!-- Footer -->
     </div>
-    {% endblock footer %}
-
-    {% render_bundle 'app' 'js' %}
-
+    {% endblock footer %} {% render_bundle 'app' 'js' %}
 
     <script src="{% static 'vendor/js/sb-admin-2.js' %}"></script>
   </body>
