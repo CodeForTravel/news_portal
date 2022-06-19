@@ -30,7 +30,7 @@ class User(AbstractUser):
         return reverse("user:detail", kwargs={"username": self.username})
 
     # user newfeed settings
-    news_sources = models.ManyToManyField(models_news.Source)
+    news_sources = models.ManyToManyField(models_news.Source, blank=True)
     country_of_news = JSONField("Country of news",null=True, blank=True)
     news_keywords = JSONField("News keywords",null=True, blank=True)
 
