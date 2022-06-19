@@ -39,6 +39,8 @@ urlpatterns = [
         include("django_rest_passwordreset.urls", namespace="password_reset"),
     ),
     path("api/v1/user/", include("news_portal.apps.user.api.urls")),
+    path("api/v1/news/", include("news_portal.apps.news.api.urls")),
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
