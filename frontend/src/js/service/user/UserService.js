@@ -16,6 +16,12 @@ export default {
     let url = urlList.urlRoot + `profile/user-info/`;
     return apiClient.get(url);
   },
+
+  getFormData() {
+    let url = urlList.urlRoot + `profile/form-data/`;
+    return apiClient.get(url);
+  },
+
   updateUserProfile(userId, userProfile) {
     let url = urlList.urlRoot + `profile/${userId}/`;
     return apiClient.patch(url, userProfile);

@@ -10,7 +10,6 @@ export const mutations = {
   SET_USER_INFO(state, userInfo) {
     state.userInfo = userInfo;
   },
-
 };
 
 export const actions = {
@@ -26,6 +25,16 @@ export const actions = {
       });
   },
 
+  getFormData({ commit }) {
+    return UserService.getFormData()
+      .then((resp) => {
+        return resp;
+      })
+      .catch((err) => {
+        console.log(err);
+        return err.response;
+      });
+  },
 
   updateUserProfile({}, { userId, userProfile }) {
     UserService.updateUserProfile(userId, userProfile)
@@ -34,7 +43,7 @@ export const actions = {
           className: "bg-success",
         });
 
-        setTimeout(function() {
+        setTimeout(function () {
           location.reload();
         }, 3000);
       })
@@ -62,7 +71,6 @@ export const actions = {
         }
       });
   },
-
 
   changeUserPassword({}, data) {
     return UserService.changeUserPassword(data)

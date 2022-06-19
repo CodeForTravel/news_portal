@@ -8,10 +8,10 @@ from news_portal.apps.user import models as models_user
 from news_portal.apps.user.api import serializers as serializers_user
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-
 from django.contrib.auth import login
 from django.utils.translation import ugettext_lazy as _
-
+from news_portal.apps.news.data import country_dict
+from news_portal.apps.news import models as models_news
 
 logger = logging.getLogger(__name__)
 
@@ -62,6 +62,15 @@ class UserProfileViewSet(
         user = request.user
         serializer = serializers_user.UserProfileSerializer(user)
         return Response(serializer.data)
+
+    @action(detail=False, methods=["GET"], url_path="form-data")
+    def get_form_data(self, request):
+        source_list = models_news.Source.objects.all().values("id","source_id","name")
+        data = { 
+            "country_list":country_dict,
+            "source_list":source_list
+        }
+        return Response(data ,status=status.HTTP_200_OK)
 
 
 class UserLoginViewSet(viewsets.ViewSet):
