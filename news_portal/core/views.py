@@ -13,7 +13,7 @@ class IndexView(TemplateView, View):
 
 # views for logged in user
 class AuthenticatedIndexView(TemplateView, View):
-    template_name = "authenticated_index.html"
+    template_name = "base/authenticated_index.html"
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
