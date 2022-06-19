@@ -16,7 +16,10 @@ class UserProfileSerializer(DynamicFieldsModelSerializer):
             "id",
             "username",
             "name",
-            "email"
+            "email",
+            "news_sources",
+            "country_of_news",
+            "news_keywords"
         ]
 
 
