@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # custom apps
     "news_portal.core",
     "news_portal.apps.user",
+    "news_portal.apps.news",
     # 3rd party apps
     "crispy_forms",
     "django_extensions",
