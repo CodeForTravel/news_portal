@@ -15,11 +15,9 @@ class NewsApiData:
     def fetch_sources(self):
         logger.info(f"fetching sources ...")
         sources_response = self.news_api_client.get_sources()
-        # logger.info(f"Sources fetched successfully : {sources_response} ...")
         if sources_response.get("status") == 'ok':
             self.create_source(sources_response.get("sources"))
-            # TODO: call create source method to create source in database with tasks
-        # TODO: create source with tasks
+            
 
 
     def fetch_top_headlines(self):
@@ -28,8 +26,6 @@ class NewsApiData:
         if response_headlines.get("status") == 'ok':
             self.create_headlines(response_headlines.get("articles"))
 
-        # TODO: create source with tasks
-    
     def create_source(self, sources_list):
         for source_dict in sources_list:
             source_id = source_dict.get("id")
@@ -68,10 +64,13 @@ class NewsApiData:
                 headline_obj.save()
 
         if newly_created_headline:
+
             self.send_notification(newly_created_headline)
 
     def send_notification(self, newly_created_headline):
+        # send notification based on keywords
         pass
+
         
 
 
