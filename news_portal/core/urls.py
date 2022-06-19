@@ -22,10 +22,10 @@ for path__ in auth_template_url_paths:
 
 
 # urls for logged in user
-sysadmin_dashboard_url_paths = [
+authenticated_url_paths = [
     # first index is path, second index is name
-    ["profile/", "profile"],
+    ["user/profile/", "profile"],
 ]
-for path__ in auth_template_url_paths:
+for path__ in authenticated_url_paths:
     urlpatterns.append(
         path(path__[0], views_core.AuthenticatedIndexView.as_view(), name=path__[1]))
