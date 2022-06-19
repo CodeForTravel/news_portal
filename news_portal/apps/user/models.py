@@ -1,9 +1,12 @@
+from calendar import TUESDAY
 import pytz
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
+from django.db.models.fields.json import JSONField
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from news_portal.apps.news import models as models_news
 
 
 class User(AbstractUser):
@@ -25,4 +28,12 @@ class User(AbstractUser):
 
     def get_absolute_url(self):
         return reverse("user:detail", kwargs={"username": self.username})
+
+    # user newfeed settings
+    news_sources = models.ManyToManyField(models_news.Source)
+    country_of_news = JSONField("Country of news",null=True, blank=True)
+    news_keywords = JSONField("News keywords",null=True, blank=True)
+
+
+
 
