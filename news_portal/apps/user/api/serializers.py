@@ -16,6 +16,7 @@ class UserProfileSerializer(DynamicFieldsModelSerializer):
             "id",
             "username",
             "name",
+            "email"
         ]
 
 
