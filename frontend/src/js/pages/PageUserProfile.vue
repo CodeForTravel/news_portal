@@ -1,14 +1,16 @@
 <template>
-  <div class="my-4">
-    <b-row>
-      <b-col cols="12" md="12" sm="12" lg="12" xl="6" class="mb-4">
-        <change-user-profile-form></change-user-profile-form>
-      </b-col>
-
-      <b-col cols="12" md="12" sm="12" lg="12" xl="6">
-        <form-change-password></form-change-password>
-      </b-col>
-    </b-row>
+  <div class="my-4 container">
+    <b-card no-body>
+      <b-tabs pills card vertical>
+        <b-tab title="User Info" active><b-card-text>
+          <change-user-profile-form></change-user-profile-form>  
+        </b-card-text></b-tab>
+        <b-tab title="Change Password"><b-card-text>
+          <form-change-password></form-change-password>
+        </b-card-text></b-tab>
+        <b-tab title="Settings"><b-card-text>News Feed Settings</b-card-text></b-tab>
+      </b-tabs>
+    </b-card>
   </div>
 </template>
 
