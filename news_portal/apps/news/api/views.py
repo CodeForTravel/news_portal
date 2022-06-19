@@ -13,9 +13,7 @@ from news_portal.core.api import pagination as pagination_global
 logger = logging.getLogger(__name__)
 
 
-class SourceViewSet(
-     viewsets.ModelViewSet
-):
+class SourceViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = models_news.Source.objects.all()
     serializer_class = serializers_news.SourceSerializer
@@ -23,4 +21,17 @@ class SourceViewSet(
 
 
 
+class TopHeadlineViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = models_news.TopHeadline.objects.all()
+    serializer_class = serializers_news.TopHeadlineSerializer
+    pagination_class = pagination_global.GlobalPagination
+
+
+
+class ArticleViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = models_news.Article.objects.all()
+    serializer_class = serializers_news.ArticleSerializer
+    pagination_class = pagination_global.GlobalPagination
 
