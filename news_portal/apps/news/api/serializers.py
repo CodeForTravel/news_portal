@@ -26,8 +26,6 @@ class TopHeadlineSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "source",
-            "headline_id",
-            "name",
             "author",
             "title",
             "description",
@@ -38,19 +36,3 @@ class TopHeadlineSerializer(serializers.ModelSerializer):
         ]
 
 
-class ArticleSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(required=False)
-    class Meta:
-        model = models_news.Article
-        fields = [
-            "id",
-            "source",
-            "author",
-            "title",
-            "description",
-            "url",
-            "urlToImage",
-            "publishedAt",
-            "content",
-
-        ]

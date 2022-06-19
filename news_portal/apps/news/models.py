@@ -16,29 +16,13 @@ class Source(models.Model):
 
 class TopHeadline(models.Model):
     source = models.ForeignKey(Source, on_delete=models.CASCADE, null=True, blank=True)
-    headline_id = models.CharField(max_length=255)
-    name = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
     description = models.TextField()
     url = models.URLField()
     urlToImage = models.URLField()
     publishedAt = models.DateTimeField()
-    content = models.CharField(max_length=255)
+    content = models.TextField(max_length=255)
 
     def __str__(self):
         return self.name
-
-
-class Article(models.Model):
-    source = models.ForeignKey(Source, on_delete=models.CASCADE, null=True, blank=True)
-    author = models.CharField(max_length=255)
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    url = models.URLField()
-    urlToImage = models.URLField()
-    publishedAt = models.DateTimeField()
-    content = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.title

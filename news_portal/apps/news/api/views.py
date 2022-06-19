@@ -29,9 +29,3 @@ class TopHeadlineViewSet(viewsets.ModelViewSet):
 
 
 
-class ArticleViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    queryset = models_news.Article.objects.all()
-    serializer_class = serializers_news.ArticleSerializer
-    pagination_class = pagination_global.GlobalPagination
-
