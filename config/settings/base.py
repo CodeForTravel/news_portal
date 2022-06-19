@@ -14,6 +14,8 @@ import environ
 import os
 from django.urls import reverse_lazy
 
+from redis import ConnectionPool
+from huey import RedisHuey
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = environ.Path(__file__) - 3
@@ -47,7 +49,9 @@ INSTALLED_APPS = [
     "django_extensions",
     "rest_framework",
     "webpack_loader",
-    "django_rest_passwordreset"
+    "django_rest_passwordreset",
+    "huey.contrib.djhuey",
+
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -256,3 +260,9 @@ LOGGING = {
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Huey settings
+pool = ConnectionPool(host="localhost", port=6379, max_connections=20)
+HUEY = RedisHuey("news_portal", connection_pool=pool, utc=False)
+# End of Huey Settings
