@@ -1,3 +1,4 @@
+from hashlib import blake2s
 from django.db import models
 
 
@@ -16,13 +17,13 @@ class Source(models.Model):
 
 class TopHeadline(models.Model):
     source = models.ForeignKey(Source, on_delete=models.CASCADE, null=True, blank=True)
-    author = models.CharField(max_length=255)
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    url = models.URLField()
-    urlToImage = models.URLField()
-    publishedAt = models.DateTimeField()
-    content = models.TextField(max_length=255)
+    author = models.CharField(max_length=255, null=True, blank=True)
+    title = models.CharField(max_length=255, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    url = models.URLField(null=True, blank=True)
+    urlToImage = models.URLField(null=True, blank=True)
+    publishedAt = models.DateTimeField(null=True, blank=True)
+    content = models.TextField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.name
