@@ -26,6 +26,10 @@
           >
             <i class="far fa-user"></i>
           </b-nav-item>
+
+          <b-nav-item class="ml-3" v-if="isAuthenticated" href="/logout">
+            <i class="fas fa-sign-out-alt"></i>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
