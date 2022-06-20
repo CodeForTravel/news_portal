@@ -21,11 +21,13 @@ class SourceSerializer(serializers.ModelSerializer):
 
 class TopHeadlineSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
+    source_detail = serializers.SerializerMethodField()
     class Meta:
         model = models_news.TopHeadline
         fields = [
             "id",
             "source",
+            "source_detail",
             "author",
             "title",
             "description",
@@ -34,5 +36,11 @@ class TopHeadlineSerializer(serializers.ModelSerializer):
             "publishedAt",
             "content"
         ]
+
+    def get_source_detail(self, obj):
+        if obj.source:
+            return SourceSerializer(obj.source).data
+        return None
+
 
 
