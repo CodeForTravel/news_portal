@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from news_portal.apps.news import models as models_news
 from news_portal.apps.news.api import serializers as serializers_news
 from news_portal.core.api import pagination as pagination_global
-
+from news_portal.apps.news.api import filters as filters_news
 
 logger = logging.getLogger(__name__)
 
@@ -26,14 +26,9 @@ class TopHeadlineViewSet(viewsets.ModelViewSet):
     queryset = models_news.TopHeadline.objects.all()
     serializer_class = serializers_news.TopHeadlineSerializer
     pagination_class = pagination_global.GlobalPagination
+    filter_backends = [
+        filters_news.TopHeadlineFilterBackend,
+    ]
 
 
-    def get_queryset(self):
-        if self.request.user.is_authenticated:
-            user = self.request.user
-            country_of_news = user.country_of_news
-            country_of_news = [s.lower() for s in country_of_news]
-            qs = self.queryset.filter(source__country__in=country_of_news, source__in=user.news_sources.all())
-            return qs
-        else:
-            return self.queryset
+    
