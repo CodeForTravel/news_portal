@@ -22,6 +22,7 @@ class SourceSerializer(serializers.ModelSerializer):
 class TopHeadlineSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
     source_detail = serializers.SerializerMethodField()
+    publishedAt = serializers.SerializerMethodField()
     class Meta:
         model = models_news.TopHeadline
         fields = [
@@ -41,6 +42,11 @@ class TopHeadlineSerializer(serializers.ModelSerializer):
         if obj.source:
             return SourceSerializer(obj.source).data
         return None
+
+    def get_publishedAt(self, obj):
+        if obj.publishedAt:
+            formatted_date = obj.publishedAt.strftime("%B %d, %Y, %I:%M %p")
+            return formatted_date
 
 
 
