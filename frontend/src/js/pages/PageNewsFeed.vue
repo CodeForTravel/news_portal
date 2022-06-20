@@ -1,8 +1,19 @@
 <template>
   <div class="container mb-4 pb-4">
-    <p v-for="(item, index) in news.headlineList" :key="index">
-      {{ item }}
-    </p>
+    <b-row v-if="news.headlineList.length > 0">
+      <b-col
+        class="p-2"
+        cols="4"
+        v-for="(item, index) in news.headlineList"
+        :key="index"
+      >
+        <card-news :news-info="item"></card-news>
+      </b-col>
+    </b-row>
+
+    <b-row v-else>
+      <b-col> No news available </b-col>
+    </b-row>
 
     <b-row>
       <b-col class="d-flex justify-content-end mb-2" cols="12">
@@ -20,6 +31,7 @@
 
 <script>
 import { mapState } from "vuex";
+const CardNews = () => import("../components/news/CardNews.vue");
 export default {
   data() {
     return {
@@ -28,18 +40,18 @@ export default {
     };
   },
 
+  components: { CardNews },
+
   computed: {
     ...mapState(["news"]),
   },
 
   created() {
-    console.log("======================");
     this.fetchNewsHeadlines();
   },
 
   methods: {
     fetchNewsHeadlines() {
-      console.log("======================");
       this.$store
         .dispatch("news/getNewsHeadlines", {
           perPage: this.perPage,
