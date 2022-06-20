@@ -80,7 +80,7 @@ export default {
       this.sourceList.forEach((item) => {
         options.push({
           id: item.id,
-          text: `${item.source_id}-${item.name}`,
+          text: item.name,
         });
       });
       return options;
