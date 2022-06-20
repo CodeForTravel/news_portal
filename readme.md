@@ -27,7 +27,7 @@
   NEWS_API_KEY=your_news_api_key
   ```
 
-- Create an account in **https://sendgrid.com//** get the API_KEY and set is to .env file:
+- Create an account in **https://sendgrid.com/** get the API_KEY and set is to .env file:
 
   ```bash
   SENDGRID_API_KEY=your_nedgrid_api_key
@@ -54,6 +54,12 @@
   pip install -r requirements.txt
   ```
 
+- Install redis server, if dont'n have in your machine yet. It will need for django-huey
+
+  ```bash
+  sudo apt-get install redis-server
+  ```
+
 - Run **migrate** command to propagate the migrations files into the db
 
   ```bash
@@ -72,11 +78,10 @@
   python manage.py runserver ip_address:port
   ```
 
-### Fetch news source
+- Run Django huey server: It will run the tasks scheduler
 
-- Fetch news source with following command:
   ```bash
-  python manage.py fetch_news_sources
+  python manage.py run_huey
   ```
 
 ---
