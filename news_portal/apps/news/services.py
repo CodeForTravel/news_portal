@@ -1,8 +1,11 @@
 import logging
 from django.conf import settings
+from django.db.models import Q
+from django.contrib.auth import get_user_model
 from newsapi import NewsApiClient
 from news_portal.apps.news import models as models_news
 
+User = get_user_model()
 logger = logging.getLogger(__name__)
 
 
@@ -38,7 +41,6 @@ class NewsApiData:
             source_obj, created = models_news.Source.objects.get_or_create(source_id=source_id,name=name,description=description,url=url,category=category,language= language,country=country)
 
     def create_headlines(self, headlines_list):
-        newly_created_headline = []
         for headline_dict in headlines_list:
             author =  headline_dict.get("author")
             title =  headline_dict.get("title")
@@ -49,8 +51,6 @@ class NewsApiData:
             content =  headline_dict.get("content")
 
             headline_obj, created = models_news.TopHeadline.objects.get_or_create(content=content,publishedAt=publishedAt,urlToImage=urlToImage,url=url,description=description,author=author,title=title)
-            if created:
-                newly_created_headline.append(headline_obj)
 
             source_name = headline_dict.get("source").get("name")
             source_id = headline_dict.get("source").get("id")
@@ -63,20 +63,50 @@ class NewsApiData:
                 headline_obj.source = source_obj
                 headline_obj.save()
 
-        if newly_created_headline:
+        self.send_news_notification()
 
-            self.send_notification(newly_created_headline)
+    def send_news_notification(self):
+        newly_created_headline = models_news.TopHeadline.objects.filter(is_notified=False)
+        user_list = User.objects.all()
+        for user in user_list:
+            q = Q()
+            for _keyword in user.news_keywords:
+                q |= Q(title__icontains = _keyword)
+                q |= Q(description__icontains = _keyword)
 
-    def send_notification(self, newly_created_headline):
-        # send notification based on keywords
-        pass
+            filter_dict = {}
+            country_of_news = [s.lower() for s in user.country_of_news]
+            if country_of_news:
+                filter_dict["source__country__in"] = country_of_news
 
+            if user.news_sources.all():
+                filter_dict["source__in"] = user.news_sources.all()
+
+            if filter_dict:
+                newly_created_headline = newly_created_headline.filter(**filter_dict)
+
+            filtered_news = newly_created_headline.filter(q)
+
+         # TODO: update the is_notified to true after test (newly_created_headline) 
+
+            if filtered_news:
+                self.send_notification(user, filtered_news)
+
+    def send_notification(self, user, filtered_news):
+        logger.info("====================")
+        logger.info(f"{user} - {filtered_news}")
+        message_header = f"Hello {user.username}, there are some important news you might be interested!\n"
+        message_body = ""
+        for news in filtered_news:
+            message_body = f"{message_body}{news.title}\n\n"
+        logger.info(f"{message_header}")
+        logger.info(f"{message_body}")
+
+        # TODO: send this mail with sendgrid
         
-
-
             
 
-            
-
-            
-
+    
+# from news_portal.apps.news.services import NewsApiData
+# obj = NewsApiData()
+# obj.fetch_top_headlines()
