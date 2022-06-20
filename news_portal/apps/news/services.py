@@ -4,16 +4,15 @@ from django.db.models import Q
 from django.contrib.auth import get_user_model
 from newsapi import NewsApiClient
 from news_portal.apps.news import models as models_news
+from news_portal.apps.news import send_grid
 
 User = get_user_model()
 logger = logging.getLogger(__name__)
-
 
 class NewsApiData:
     def __init__(self) :
         self.NEWS_API_KEY = settings.NEWS_API_KEY
         self.news_api_client = NewsApiClient(self.NEWS_API_KEY)
-
 
     def fetch_sources(self):
         logger.info(f"fetching sources ...")
@@ -21,8 +20,6 @@ class NewsApiData:
         if sources_response.get("status") == 'ok':
             self.create_source(sources_response.get("sources"))
             
-
-
     def fetch_top_headlines(self):
         response_headlines = self.news_api_client.get_top_headlines()
         logger.info(f"fetching topheaders:{response_headlines} ...")
@@ -62,7 +59,6 @@ class NewsApiData:
                 source_obj = source_qs.first()
                 headline_obj.source = source_obj
                 headline_obj.save()
-
         self.send_news_notification()
 
     def send_news_notification(self):
@@ -86,24 +82,17 @@ class NewsApiData:
                 newly_created_headline = newly_created_headline.filter(**filter_dict)
 
             filtered_news = newly_created_headline.filter(q)
-
          # TODO: update the is_notified to true after test (newly_created_headline) 
 
             if filtered_news:
                 self.send_notification(user, filtered_news)
 
     def send_notification(self, user, filtered_news):
-        logger.info("====================")
-        logger.info(f"{user} - {filtered_news}")
         message_header = f"Hello {user.username}, there are some important news you might be interested!\n"
         message_body = ""
         for news in filtered_news:
             message_body = f"{message_body}{news.title}\n\n"
-        logger.info(f"{message_header}")
-        logger.info(f"{message_body}")
-
-        # TODO: send this mail with sendgrid
-        
+        send_grid.send_mail(user, message_header, message_body)        
             
 
     

@@ -29,7 +29,8 @@ env.read_env(".env")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str("DJANGO_SECRET_KEY")
 NEWS_API_KEY = env.str("NEWS_API_KEY")
-
+SENDGRID_API_KEY = env.str("SENDGRID_API_KEY")
+EMAIL_NOREPLY = env.str("EMAIL_NOREPLY")
 
 # Application definition
 
