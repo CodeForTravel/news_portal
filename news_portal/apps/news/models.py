@@ -1,3 +1,4 @@
+from fcntl import F_SEAL_SEAL
 from hashlib import blake2s
 from django.db import models
 
@@ -24,6 +25,7 @@ class TopHeadline(models.Model):
     urlToImage = models.URLField(max_length=400,null=True, blank=True)
     publishedAt = models.DateTimeField(null=True, blank=True)
     content = models.TextField(null=True, blank=True)
+    is_notified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
