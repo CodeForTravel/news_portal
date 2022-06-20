@@ -47,10 +47,15 @@ export default {
   },
 
   created() {
-    this.fetchNewsHeadlines();
+    this.fetchNewsHeadlineRecursively();
   },
 
   methods: {
+    fetchNewsHeadlineRecursively() {
+      this.fetchNewsHeadlines();
+      setTimeout(this.fetchNewsHeadlineRecursively, 1000 * 60 * 10);
+    },
+
     fetchNewsHeadlines() {
       this.$store
         .dispatch("news/getNewsHeadlines", {
