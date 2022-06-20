@@ -12,9 +12,13 @@ const urlList = {
 };
 
 export default {
-  getNewsHeadlines(perPage, page) {
+  getNewsHeadlines(perPage, page, home) {
     var relativeURL =
       urlList.urlRoot + "top-headlines/?page_size=" + perPage + "&page=" + page;
+
+    if (home) {
+      relativeURL = relativeURL + "&home_page=" + home;
+    }
     return apiClient.get(relativeURL);
   },
 };

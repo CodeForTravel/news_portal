@@ -17,8 +17,8 @@ export const mutations = {
 };
 
 export const actions = {
-  getNewsHeadlines({ commit }, { perPage, page }) {
-    return ServiceNews.getNewsHeadlines(perPage, page)
+  getNewsHeadlines({ commit }, { perPage, page, home }) {
+    return ServiceNews.getNewsHeadlines(perPage, page, home)
       .then((resp) => {
         commit("SET_HEADLINE_LIST", resp.data.results);
         commit("SET_HEADLINE_COUNT", resp.data.count);

@@ -6,6 +6,7 @@ class TopHeadlineFilterBackend(filters.BaseFilterBackend):
     def filter_queryset(self, request, queryset, view):
         filter_dict = {}
         home_page = request.query_params.get("home_page")
+        print(home_page)
         if home_page or not request.user.is_authenticated:
             return queryset
 

@@ -11,9 +11,15 @@
       </a>
     </div>
     <div class="card__body">
-      <span class="tag tag-blue" v-if="newsInfo.source_detail">
-        {{ newsInfo.source_detail.name }}
-      </span>
+      <div class="tag-container">
+        <span class="tag tag-blue" v-if="newsInfo.source_detail">
+          {{ newsInfo.source_detail.name }}
+        </span>
+        <span class="tag tag-brown" v-if="newsInfo.source_detail">
+          {{ newsInfo.source_detail.country }}
+        </span>
+      </div>
+
       <a :href="newsInfo.url">
         <h4>{{ newsInfo.title }}</h4>
       </a>
@@ -92,8 +98,14 @@ img {
   gap: 0.5rem;
 }
 
+.tag-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .tag {
-  align-self: flex-start;
+  display: block;
   padding: 0.25em 0.75em;
   border-radius: 1em;
   font-size: 0.75rem;
@@ -112,12 +124,6 @@ img {
 .tag-brown {
   background: #d1913c;
   background: linear-gradient(to bottom, #ffd194, #d1913c);
-  color: #fafafa;
-}
-
-.tag-red {
-  background: #cb2d3e;
-  background: linear-gradient(to bottom, #ef473a, #cb2d3e);
   color: #fafafa;
 }
 
