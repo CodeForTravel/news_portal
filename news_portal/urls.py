@@ -20,6 +20,7 @@ from django.contrib.auth.views import LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token 
 
 from news_portal.apps.user import views as views_user
 
@@ -38,6 +39,7 @@ urlpatterns = [
         r"api/v1/password_reset/",
         include("django_rest_passwordreset.urls", namespace="password_reset"),
     ),
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
     path("api/v1/user/", include("news_portal.apps.user.api.urls")),
     path("api/v1/news/", include("news_portal.apps.news.api.urls")),
 

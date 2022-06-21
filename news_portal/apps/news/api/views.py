@@ -10,14 +10,16 @@ logger = logging.getLogger(__name__)
 
 
 class SourceViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = (IsAuthenticated,)
     queryset = models_news.Source.objects.all()
     serializer_class = serializers_news.SourceSerializer
     pagination_class = pagination_global.GlobalPagination
 
 
 class TopHeadlineViewSet(viewsets.ModelViewSet):
-    permission_classes = [AllowAny]
+    # permission_classes = [AllowAny]
+    permission_classes = (IsAuthenticated,)
+
     queryset = models_news.TopHeadline.objects.all()
     serializer_class = serializers_news.TopHeadlineSerializer
     pagination_class = pagination_global.GlobalPagination
