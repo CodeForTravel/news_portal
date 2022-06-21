@@ -30,7 +30,7 @@
 - Create an account in **https://sendgrid.com/** get the API_KEY and set is to .env file:
 
   ```bash
-  SENDGRID_API_KEY=your_nedgrid_api_key
+  SENDGRID_API_KEY=your_sendgrid_api_key
   ```
 
 - Create a virtual environment named **env** with Python's **venv**:
