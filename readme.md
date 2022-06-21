@@ -84,6 +84,20 @@
   python manage.py run_huey
   ```
 
+- To fetch the news sources:
+  Note: This system will fetch the sources after every 24 hours. but for first time you have to run the following command
+
+  ```bash
+  python manage.py shell_plus
+  ```
+
+  Run following command in shell:
+
+  ```bash
+  from news_portal.apps.news.tasks import task_fetch_news_sources
+  task_fetch_news_sources()
+  ```
+
 ---
 
 - Install packages for the Front-end
