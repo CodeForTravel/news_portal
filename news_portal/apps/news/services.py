@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from newsapi import NewsApiClient
 from news_portal.apps.news import models as models_news
 from news_portal.apps.news import send_grid
+from news_portal.apps.news import tasks as tasks_news
 
 User = get_user_model()
 logger = logging.getLogger(__name__)
@@ -59,7 +60,7 @@ class NewsApiData:
                 source_obj = source_qs.first()
                 headline_obj.source = source_obj
                 headline_obj.save()
-        self.send_news_notification()
+        tasks_news.task_send_news_notification()
 
     def send_news_notification(self):
         newly_created_headline = models_news.TopHeadline.objects.filter(is_notified=False)
@@ -81,11 +82,10 @@ class NewsApiData:
             if filter_dict:
                 newly_created_headline = newly_created_headline.filter(**filter_dict)
 
-            filtered_news = newly_created_headline.filter(q)
-         # TODO: update the is_notified to true after test (newly_created_headline) 
-
+            filtered_news = newly_created_headline.filter(q) 
             if filtered_news:
                 self.send_notification(user, filtered_news)
+        models_news.TopHeadline.objects.filter(is_notified=False).update(is_notified=True)
 
     def send_notification(self, user, filtered_news):
         message_header = f"Hello {user.username}, there are some important news you might be interested!\n"
@@ -94,8 +94,3 @@ class NewsApiData:
             message_body = f"{message_body}{news.title}\n\n"
         send_grid.send_mail(user, message_header, message_body)        
             
-
-    
-# from news_portal.apps.news.services import NewsApiData
-# obj = NewsApiData()
-# obj.fetch_top_headlines()

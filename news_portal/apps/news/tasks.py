@@ -20,17 +20,32 @@ def task_fetch_news_headline():
 
     logger.info("[task_fetch_news_headline] Executed - Successful")
 
-    
 
-@task()
-def task_send_notification(newly_created_headline):
-    logger.info("[task_send_notification] Executing ...")
+@periodic_task(crontab(hour="*/24"))
+def task_fetch_news_sources():
+    logger.info("[task_fetch_news_sources] Executing ...")
 
     try:
         service_obj =  services.NewsApiData()
-        service_obj.send_notification(newly_created_headline)
+        service_obj.fetch_sources()
     except Exception as e:
         logger.exception(e)
-        logger.info("[task_send_notification] Executed - Failed")
+        logger.info("[task_fetch_news_sources] Executed - Failed")
 
-    logger.info("[task_send_notification] Executed - Successful")
+    logger.info("[task_fetch_news_sources] Executed - Successful")
+    
+
+@task()
+def task_send_news_notification():
+    logger.info("[task_send_news_notification] Executing ...")
+
+    try:
+        service_obj =  services.NewsApiData()
+        service_obj.send_news_notification()()
+    except Exception as e:
+        logger.exception(e)
+        logger.info("[task_send_news_notification] Executed - Failed")
+
+    logger.info("[task_send_news_notification] Executed - Successful")
+
+

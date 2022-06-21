@@ -12,7 +12,9 @@
     </b-row>
 
     <b-row v-else>
-      <b-col> No news available </b-col>
+      <b-col class="p-4">
+        <b-alert show variant="warning"> No news available</b-alert>
+      </b-col>
     </b-row>
 
     <b-row>

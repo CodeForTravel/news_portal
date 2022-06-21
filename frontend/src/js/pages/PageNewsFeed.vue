@@ -12,7 +12,9 @@
     </b-row>
 
     <b-row v-else>
-      <b-col> No news available </b-col>
+      <b-col class="p-4">
+        <b-alert show variant="warning"> No news available</b-alert>
+      </b-col>
     </b-row>
 
     <b-row>
@@ -53,7 +55,7 @@ export default {
   methods: {
     fetchNewsHeadlineRecursively() {
       this.fetchNewsHeadlines();
-      setTimeout(this.fetchNewsHeadlineRecursively, 1000 * 60 * 10);
+      setTimeout(this.fetchNewsHeadlineRecursively, 1000 * 60 * 7);
     },
 
     fetchNewsHeadlines() {
